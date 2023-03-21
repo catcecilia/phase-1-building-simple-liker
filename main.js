@@ -3,8 +3,27 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+//step 1 add hidden class to error modal so it doesn't show when it first loads
+const errorMsg = document.querySelector('#modal');
+errorMsg.className = "hidden";
 
+//invoke mimicServerCall 
 
+const hearts = document.querySelectorAll('.like-glyph');
+hearts.forEach(heart => heart.addEventListener('click', function(){
+  mimicServerCall()
+   .catch(()=>{
+    errorMsg.classList.remove("hidden");
+    setTimeout(function(){errorMsg.className="hidden"}, 3000)})
+  .then(()=>{
+    heart.classList.toggle("activated-heart");
+    if (heart.innerText == EMPTY_HEART){
+      heart.innerText=FULL_HEART;
+    } else {
+      heart.innerText=EMPTY_HEART;
+    }
+  });
+}));
 
 
 //------------------------------------------------------------------------------
